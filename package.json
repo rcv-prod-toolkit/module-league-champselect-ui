@@ -1,6 +1,6 @@
 {
-  "name": "layout-volu-europe",
-  "version": "0.1.0",
+  "name": "module-league-champselect-ui",
+  "version": "1.0.1",
   "private": true,
   "toolkit": {
     "modes": [
