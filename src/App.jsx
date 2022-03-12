@@ -26,7 +26,7 @@ function App() {
     });
     useEffect(() => {
         window.LPTE.onready(() => {
-            window.LPTE.on('state-league', 'champselect-update', e => {
+            window.LPTE.on('module-league-state', 'champselect-update', e => {
                 console.log(e);
                 e.data.isActive = e.isActive;
                 e.data.isActive = true;
