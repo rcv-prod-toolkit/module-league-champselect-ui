@@ -1,7 +1,7 @@
 {
   "name": "module-league-champselect-ui",
   "version": "1.0.3",
-  "private": true,
+  "author": "RCVolus",
   "toolkit": {
     "modes": [
       "PLUGIN"
