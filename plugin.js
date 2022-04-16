@@ -1,4 +1,5 @@
 module.exports = (ctx) => {
+  const namespace = ctx.plugin.module.getName();
   // Register new UI page
   ctx.LPTE.emit({
     meta: {
@@ -7,9 +8,9 @@ module.exports = (ctx) => {
       version: 1
     },
     pages: [{
-      name: 'Champselect',
+      name: 'LoL: Champselect',
       frontend: 'build',
-      id: 'champselect'
+      id: `op-${namespace}`
     }]
   });
 
