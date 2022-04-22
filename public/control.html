@@ -1,14 +1,94 @@
 <h2>Champselect UI</h2>
-<div class="d-flex">
-    <div>
-        <div style="width: 960px; height: 540px; overflow: hidden;">
-        <iframe src="/pages/op-module-league-champselect-ui/champselect.html" width="1920" height="1080" style="transform: scale(0.5); transform-origin: 0 0;"></iframe>
-        </div>
-    </div>
+<div style="width: 960px; height: 540px; overflow: hidden; margin-bottom: 1rem;">
+    <iframe src="/pages/op-module-league-champselect-ui/champselect.html" width="1920" height="1080" style="transform: scale(0.5); transform-origin: 0 0;"></iframe>
 </div>
 
-<input id="link" style="width: 100%;" readonly>
+<input id="link" style="width: 100%;" class="form-control" readonly>
+
+<div class="d-flex mt-3" style="gap: 3rem;">
+    <button id="recordingState" class="btn btn-block btn-secondary">Start Recording</button>
+    <button id="replayState" class="btn btn-block btn-primary mt-0">Replay Recording</button>
+</div>
 
 <script>
     document.getElementById('link').value = `${location.href}/champselect.html${window.apiKey !== null ? '?apikey=' + window.apiKey : ''}`;
+
+    let recordingState = false
+    let isPlaying = false
+    const recordingStateBtn = document.querySelector('#recordingState')
+    const replayBtn = document.querySelector('#replayState')
+
+    window.LPTE.onready(async () => {
+        const response = await LPTE.request({
+            meta: {
+                namespace: 'module-league-state',
+                type: 'request-recoding-state',
+                version: 1
+            }
+        });
+
+        recordingState = response.recordingEnabled
+        isPlaying = response.isPlaying
+
+        if (response.recordingEnabled) {
+            recordingStateBtn.classList.remove('btn-secondary')
+            recordingStateBtn.classList.add('btn-danger')
+            recordingStateBtn.innerHTML = 'Stop Recording'
+        } else {
+            recordingStateBtn.classList.add('btn-secondary')
+            recordingStateBtn.classList.remove('btn-danger')
+            recordingStateBtn.innerHTML = 'Start Recording'
+        }
+        if (response.isPlaying) {
+            replayBtn.classList.remove('btn-primary')
+            replayBtn.classList.add('btn-success')
+            replayBtn.innerHTML = 'Stop Replay'
+        } else {
+            replayBtn.classList.add('btn-primary')
+            replayBtn.classList.remove('btn-success')
+            replayBtn.innerHTML = 'Start Replay'
+        }
+    })
+
+    recordingStateBtn.addEventListener('click', () => {
+        recordingState = !recordingState
+        window.LPTE.emit({
+            meta: {
+                namespace: 'module-league-state',
+                type: 'record-champselect'
+            },
+            recordingEnabled: recordingState
+        })
+
+        if (recordingState) {
+            recordingStateBtn.classList.remove('btn-secondary')
+            recordingStateBtn.classList.add('btn-danger')
+            recordingStateBtn.innerHTML = 'Stop Recording'
+        } else {
+            recordingStateBtn.classList.add('btn-secondary')
+            recordingStateBtn.classList.remove('btn-danger')
+            recordingStateBtn.innerHTML = 'Start Recording'
+        }
+    })
+
+    replayBtn.addEventListener('click', () => {
+        isPlaying = !isPlaying
+        window.LPTE.emit({
+            meta: {
+                namespace: 'module-league-state',
+                type: 'replay-champselect'
+            },
+            play: isPlaying
+        })
+
+        if (isPlaying) {
+            replayBtn.classList.remove('btn-primary')
+            replayBtn.classList.add('btn-success')
+            replayBtn.innerHTML = 'Stop Replay'
+        } else {
+            replayBtn.classList.add('btn-primary')
+            replayBtn.classList.remove('btn-success')
+            replayBtn.innerHTML = 'Start Replay'
+        }
+    })
 </script>
