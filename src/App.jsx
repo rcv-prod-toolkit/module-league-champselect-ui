@@ -25,25 +25,43 @@ function App() {
         }
     });
     useEffect(() => {
-        window.LPTE.onready(() => {
+        window.LPTE.onready(async () => {
             window.LPTE.on('module-league-state', 'champselect-update', e => {
-                console.log(e);
                 e.data.isActive = e.isActive;
                 e.data.isActive = true;
                 setGlobalState(e.data);
             });
-        });
 
-        /* window.LPTE.emit({
-            meta: {
-                namespace: 'lcu',
-                type: 'lcu-champ-select-create',
-                version: 1
+            window.LPTE.on('module-teams', 'update', changeColors)
+
+            const themeBlue = document.querySelector(':root').style.getPropertyValue('--blue-team')
+            const themeRed = document.querySelector(':root').style.getPropertyValue('--red-team')
+
+            function changeColors (e) {
+                if (e.teams.blueTeam.color !== '#000000') {
+                    document.querySelector(':root').style.setProperty('--blue-team', e.teams.blueTeam.color)
+                } else {
+                    document.querySelector(':root').style.setProperty('--blue-team', themeBlue)
+                }
+                if (e.teams.redTeam.color !== '#000000') {
+                    document.querySelector(':root').style.setProperty('--red-team', e.teams.redTeam.color)
+                } else {
+                    document.querySelector(':root').style.setProperty('--red-team', themeRed)
+                }
             }
-        }); */
-    }, []);
 
-    console.log(globalState);
+            const teams = await window.LPTE.request({
+                meta: {
+                    namespace: 'module-teams',
+                    type: 'request-current',
+                    version: 1
+                }
+            })
+
+            if (teams === undefined) return
+            changeColors(teams)
+        });
+    }, []);
 
     return (
         <div className="App">
