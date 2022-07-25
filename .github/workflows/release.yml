@@ -4,15 +4,14 @@ name: Release
 on:
   push:
     tags:
-      - "v*"
+      - 'v*'
 
 # Automatically create a GitHub Release, with release details specified (the relevant commits)
 jobs:
   release:
-    name: "Release"
-    runs-on: "ubuntu-latest"
+    name: 'Release'
+    runs-on: 'ubuntu-latest'
     steps:
-
       - uses: actions/checkout@v2
 
       - name: Setup NodeJS
@@ -28,9 +27,9 @@ jobs:
       - name: Create Zip
         run: zip -r module-league-champselect-ui.zip package.json package-lock.json plugin.js build/*
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - uses: 'marvinpinto/action-automatic-releases@latest'
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          repo_token: '${{ secrets.GITHUB_TOKEN }}'
           prerelease: false
           files: |
             module-league-champselect-ui.zip

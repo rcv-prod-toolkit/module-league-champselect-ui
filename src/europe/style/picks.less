@@ -26,7 +26,8 @@
     }
 
     .PlayerName {
-      transition: height 1s, font-size 1s, margin-top 1s, background-color 0.3s, color 0.3s;
+      transition: height 1s, font-size 1s, margin-top 1s, background-color 0.3s,
+        color 0.3s;
       height: var(--pick-name-height);
       color: white;
       background-color: black;
@@ -55,11 +56,12 @@
         width: calc(100% + calc(2 * var(--pick-image-crop)));
         height: 100%;
         object-fit: cover;
-        object-position: calc(-1 * var(--pick-image-crop)) calc(-1 * var(--pick-image-crop));
+        object-position: calc(-1 * var(--pick-image-crop))
+          calc(-1 * var(--pick-image-crop));
       }
 
       &.Active::before {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         left: 0;
@@ -78,8 +80,8 @@
 
 &.TeamBlue .Picks .Pick {
   &:last-child {
-     border-right: solid var(--border-between-color) 1px;
-   }
+    border-right: solid var(--border-between-color) 1px;
+  }
   &:first-child {
     border: none;
   }
@@ -90,7 +92,7 @@
       color: black;
     }
     .PlayerName::after {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
@@ -117,7 +119,7 @@
       color: black;
     }
     .PlayerName::after {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;

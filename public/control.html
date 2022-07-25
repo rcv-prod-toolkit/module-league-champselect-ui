@@ -1,144 +1,161 @@
 <h2>Champselect UI</h2>
-<div style="width: 960px; height: 540px; overflow: hidden; margin-bottom: 1rem;">
-    <iframe src="/pages/op-module-league-champselect-ui/champselect.html" width="1920" height="1080" style="transform: scale(0.5); transform-origin: 0 0;"></iframe>
+<div style="width: 960px; height: 540px; overflow: hidden; margin-bottom: 1rem">
+  <iframe
+    src="/pages/op-module-league-champselect-ui/champselect.html"
+    width="1920"
+    height="1080"
+    style="transform: scale(0.5); transform-origin: 0 0"
+  ></iframe>
 </div>
 
-<input id="link" style="width: 100%;" class="form-control" readonly>
+<input id="link" style="width: 100%" class="form-control" readonly />
 
-<div class="d-flex mt-3" style="gap: 1.5rem;">
-    <button id="recordingState" class="btn btn-block btn-secondary">Start Recording</button>
-    <button id="replayState" class="btn btn-block btn-primary mt-0">Replay Recording</button>
-    <input class="ml-3 form-control" id="recordingName" placeholder="Recording name" value="Champselect">
-    <button class="btn btn-success px-2" id="downloadBtn" title="Download">
-        <i class="fa fa-download"></i>
-    </button>
-    <button id="reloadBtn" class="btn btn-secondary px-2"">
-        <i class="fa fa-rotate-right"></i>
-    </label>
+<div class="d-flex mt-3" style="gap: 1.5rem">
+  <button id="recordingState" class="btn btn-block btn-secondary">
+    Start Recording
+  </button>
+  <button id="replayState" class="btn btn-block btn-primary mt-0">
+    Replay Recording
+  </button>
+  <input
+    class="ml-3 form-control"
+    id="recordingName"
+    placeholder="Recording name"
+    value="Champselect"
+  />
+  <button class="btn btn-success px-2" id="downloadBtn" title="Download">
+    <i class="fa fa-download"></i>
+  </button>
+  <button id="reloadBtn" class="btn btn-secondary px-2">
+    <i class="fa fa-rotate-right"></i>
+  </button>
 </div>
 
 <script>
-    document.getElementById('link').value = `${location.href}/champselect.html${window.apiKey !== null ? '?apikey=' + window.apiKey : ''}`;
+  document.getElementById('link').value = `${location.href}/champselect.html${
+    window.apiKey !== null ? '?apikey=' + window.apiKey : ''
+  }`
 
-    let recordingState = false
-    let isPlaying = false
-    const recordingStateBtn = document.querySelector('#recordingState')
-    const replayBtn = document.querySelector('#replayState')
+  let recordingState = false
+  let isPlaying = false
+  const recordingStateBtn = document.querySelector('#recordingState')
+  const replayBtn = document.querySelector('#replayState')
 
-    window.LPTE.onready(async () => {
-        const response = await LPTE.request({
-            meta: {
-                namespace: 'module-league-state',
-                type: 'request-recoding-state',
-                version: 1
-            }
-        });
-
-        recordingState = response.recordingEnabled
-        isPlaying = response.isPlaying
-
-        if (response.recordingEnabled) {
-            recordingStateBtn.classList.remove('btn-secondary')
-            recordingStateBtn.classList.add('btn-danger')
-            recordingStateBtn.innerHTML = 'Stop Recording'
-        } else {
-            recordingStateBtn.classList.add('btn-secondary')
-            recordingStateBtn.classList.remove('btn-danger')
-            recordingStateBtn.innerHTML = 'Start Recording'
-        }
-        if (response.isPlaying) {
-            replayBtn.classList.remove('btn-primary')
-            replayBtn.classList.add('btn-success')
-            replayBtn.innerHTML = 'Stop Replay'
-        } else {
-            replayBtn.classList.add('btn-primary')
-            replayBtn.classList.remove('btn-success')
-            replayBtn.innerHTML = 'Start Replay'
-        }
+  window.LPTE.onready(async () => {
+    const response = await LPTE.request({
+      meta: {
+        namespace: 'module-league-state',
+        type: 'request-recoding-state',
+        version: 1
+      }
     })
 
-    recordingStateBtn.addEventListener('click', () => {
-        recordingState = !recordingState
-        window.LPTE.emit({
-            meta: {
-                namespace: 'module-league-state',
-                type: 'record-champselect'
-            },
-            recordingEnabled: recordingState
-        })
+    recordingState = response.recordingEnabled
+    isPlaying = response.isPlaying
 
-        if (recordingState) {
-            recordingStateBtn.classList.remove('btn-secondary')
-            recordingStateBtn.classList.add('btn-danger')
-            recordingStateBtn.innerHTML = 'Stop Recording'
-        } else {
-            recordingStateBtn.classList.add('btn-secondary')
-            recordingStateBtn.classList.remove('btn-danger')
-            recordingStateBtn.innerHTML = 'Start Recording'
-        }
+    if (response.recordingEnabled) {
+      recordingStateBtn.classList.remove('btn-secondary')
+      recordingStateBtn.classList.add('btn-danger')
+      recordingStateBtn.innerHTML = 'Stop Recording'
+    } else {
+      recordingStateBtn.classList.add('btn-secondary')
+      recordingStateBtn.classList.remove('btn-danger')
+      recordingStateBtn.innerHTML = 'Start Recording'
+    }
+    if (response.isPlaying) {
+      replayBtn.classList.remove('btn-primary')
+      replayBtn.classList.add('btn-success')
+      replayBtn.innerHTML = 'Stop Replay'
+    } else {
+      replayBtn.classList.add('btn-primary')
+      replayBtn.classList.remove('btn-success')
+      replayBtn.innerHTML = 'Start Replay'
+    }
+  })
+
+  recordingStateBtn.addEventListener('click', () => {
+    recordingState = !recordingState
+    window.LPTE.emit({
+      meta: {
+        namespace: 'module-league-state',
+        type: 'record-champselect'
+      },
+      recordingEnabled: recordingState
     })
 
-    replayBtn.addEventListener('click', () => {
-        isPlaying = !isPlaying
-        window.LPTE.emit({
-            meta: {
-                namespace: 'module-league-state',
-                type: 'replay-champselect'
-            },
-            play: isPlaying
-        })
+    if (recordingState) {
+      recordingStateBtn.classList.remove('btn-secondary')
+      recordingStateBtn.classList.add('btn-danger')
+      recordingStateBtn.innerHTML = 'Stop Recording'
+    } else {
+      recordingStateBtn.classList.add('btn-secondary')
+      recordingStateBtn.classList.remove('btn-danger')
+      recordingStateBtn.innerHTML = 'Start Recording'
+    }
+  })
 
-        if (isPlaying) {
-            replayBtn.classList.remove('btn-primary')
-            replayBtn.classList.add('btn-success')
-            replayBtn.innerHTML = 'Stop Replay'
-        } else {
-            replayBtn.classList.add('btn-primary')
-            replayBtn.classList.remove('btn-success')
-            replayBtn.innerHTML = 'Start Replay'
-        }
+  replayBtn.addEventListener('click', () => {
+    isPlaying = !isPlaying
+    window.LPTE.emit({
+      meta: {
+        namespace: 'module-league-state',
+        type: 'replay-champselect'
+      },
+      play: isPlaying
     })
 
-    const downloadBtn = document.querySelector('#downloadBtn')
-    const reloadBtn = document.querySelector('#reloadBtn')
-    const recordingName = document.querySelector('#recordingName')
+    if (isPlaying) {
+      replayBtn.classList.remove('btn-primary')
+      replayBtn.classList.add('btn-success')
+      replayBtn.innerHTML = 'Stop Replay'
+    } else {
+      replayBtn.classList.add('btn-primary')
+      replayBtn.classList.remove('btn-success')
+      replayBtn.innerHTML = 'Start Replay'
+    }
+  })
 
-    downloadBtn.addEventListener('click', async () => {
-        const response = await window.LPTE.request({
-            meta: {
-                namespace: 'module-league-state',
-                type: 'request-recording',
-                version: 1
-            }
-        })
+  const downloadBtn = document.querySelector('#downloadBtn')
+  const reloadBtn = document.querySelector('#reloadBtn')
+  const recordingName = document.querySelector('#recordingName')
 
-        if (response === undefined) return
-
-        downLoad({ data: response.data })
+  downloadBtn.addEventListener('click', async () => {
+    const response = await window.LPTE.request({
+      meta: {
+        namespace: 'module-league-state',
+        type: 'request-recording',
+        version: 1
+      }
     })
 
-    function downLoad (data) {
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+    if (response === undefined) return
 
-        const link = document.createElement("a");
-        link.href = dataStr;
-        link.download = recordingName.value + '.json';
-        link.click();
-    };
+    downLoad({ data: response.data })
+  })
 
-    reloadBtn.addEventListener('click', async (e) => {
-        const [fileHandle] = await window.showOpenFilePicker();
-        const file = await fileHandle.getFile();
-        const contents = await file.text();
-        const data = JSON.parse(contents)
-        
-        await window.LPTE.emit({
-            meta: {
-                namespace: 'module-league-state',
-                type: 'reload-recording',
-                version: 1
-            },
-            ...data
-        })
+  function downLoad(data) {
+    const dataStr =
+      'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data))
+
+    const link = document.createElement('a')
+    link.href = dataStr
+    link.download = recordingName.value + '.json'
+    link.click()
+  }
+
+  reloadBtn.addEventListener('click', async (e) => {
+    const [fileHandle] = await window.showOpenFilePicker()
+    const file = await fileHandle.getFile()
+    const contents = await file.text()
+    const data = JSON.parse(contents)
+
+    await window.LPTE.emit({
+      meta: {
+        namespace: 'module-league-state',
+        type: 'reload-recording',
+        version: 1
+      },
+      ...data
     })
+  })
 </script>

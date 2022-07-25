@@ -19,11 +19,12 @@
       width: calc(100% + calc(2 * var(--ban-image-crop)));
       height: 100%;
       object-fit: cover;
-      object-position: calc(-1 * var(--ban-image-crop)) calc(-1 * var(--ban-image-crop) + 1px);
+      object-position: calc(-1 * var(--ban-image-crop))
+        calc(-1 * var(--ban-image-crop) + 1px);
     }
 
     .BanImage.Active::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;

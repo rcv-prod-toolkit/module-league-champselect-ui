@@ -1,5 +1,5 @@
 module.exports = (ctx) => {
-  const namespace = ctx.plugin.module.getName();
+  const namespace = ctx.plugin.module.getName()
   // Register new UI page
   ctx.LPTE.emit({
     meta: {
@@ -7,12 +7,14 @@ module.exports = (ctx) => {
       namespace: 'ui',
       version: 1
     },
-    pages: [{
-      name: 'LoL: Champselect',
-      frontend: 'build',
-      id: `op-${namespace}`
-    }]
-  });
+    pages: [
+      {
+        name: 'LoL: Champselect',
+        frontend: 'build',
+        id: `op-${namespace}`
+      }
+    ]
+  })
 
   // Emit event that we're ready to operate
   ctx.LPTE.emit({
@@ -22,5 +24,5 @@ module.exports = (ctx) => {
       version: 1
     },
     status: 'RUNNING'
-  });
+  })
 }
