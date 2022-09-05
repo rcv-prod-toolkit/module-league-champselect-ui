@@ -9,7 +9,11 @@
     "plugin": {
       "main": "plugin.js"
     },
-    "needsBuild": true
+    "needsBuild": true,
+    "dependencies": [
+      "module-league-state",
+      "module-league-static"
+    ]
   },
   "homepage": "/pages/op-module-league-champselect-ui",
   "dependencies": {
