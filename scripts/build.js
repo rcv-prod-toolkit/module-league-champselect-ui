@@ -172,7 +172,7 @@ function build(previousFileSizes) {
         return reject(new Error(messages.warnings.join('\n\n')))
       }
 
-      fs.renameSync('build/index.html', 'build/champselect.html')
+      fs.renameSync('frontend/gfx/index.html', 'frontend/gfx/champselect.html')
 
       return resolve({
         stats,
