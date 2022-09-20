@@ -10,7 +10,7 @@ module.exports = (ctx) => {
     pages: [
       {
         name: 'LoL: Champselect',
-        frontend: 'frontend',
+        frontend: 'build',
         id: `op-${namespace}`
       }
     ]

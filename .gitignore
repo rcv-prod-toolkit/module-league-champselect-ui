@@ -9,7 +9,7 @@
 /coverage
 
 # production
-frontend/gfx
+build
 
 # misc
 .DS_Store
