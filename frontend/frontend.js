@@ -119,10 +119,23 @@ function downLoad(data) {
 }
 
 reloadBtn.addEventListener('click', async (e) => {
-  const [fileHandle] = await window.showOpenFilePicker()
+  const [fileHandle] = await window.showOpenFilePicker({
+    types: [
+      {
+        description: 'Champselect File',
+        accept: {
+          'application/json': ['.json']
+        }
+      }
+    ],
+    excludeAcceptAllOption: true,
+    multiple: false
+  })
   const file = await fileHandle.getFile()
   const contents = await file.text()
   const data = JSON.parse(contents)
+
+  recordingName.value = file.name.split('.')[0]
 
   await window.LPTE.emit({
     meta: {
