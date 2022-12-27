@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.5.5",
-    "@svgr/webpack": "4.3.2",
+    "@svgr/webpack": "6.5.1",
     "babel-jest": "^24.8.0",
     "babel-loader": "8.0.6",
     "babel-plugin-named-asset-import": "^0.3.3",
@@ -51,7 +51,7 @@
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "0.5.0",
-    "optimize-css-assets-webpack-plugin": "5.0.3",
+    "optimize-css-assets-webpack-plugin": "6.0.1",
     "pnp-webpack-plugin": "1.5.0",
     "postcss-flexbugs-fixes": "4.1.0",
     "postcss-loader": "3.0.0",
