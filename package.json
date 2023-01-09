@@ -17,7 +17,7 @@
   },
   "homepage": "/pages/op-module-league-champselect-ui",
   "dependencies": {
-    "camelcase": "^5.2.0",
+    "camelcase": "^7.0.1",
     "classnames": "^2.2.6",
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
