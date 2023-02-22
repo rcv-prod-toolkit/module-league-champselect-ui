@@ -20,7 +20,7 @@
     "camelcase": "^7.0.1",
     "classnames": "^2.3.2",
     "dotenv": "16.0.3",
-    "dotenv-expand": "4.2.0",
+    "dotenv-expand": "^4.2.0",
     "fs-extra": "7.0.1",
     "identity-obj-proxy": "3.0.0",
     "is-svg": "^4.3.1",
