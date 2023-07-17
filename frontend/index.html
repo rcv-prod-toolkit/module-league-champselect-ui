@@ -15,9 +15,36 @@
   <button id="recordingState" class="btn btn-block btn-secondary">
     Start Recording
   </button>
-  <button id="replayState" class="btn btn-block btn-primary mt-0">
-    Replay Recording
-  </button>
+
+  <div class="btn-group btn-block mt-0">
+    <button type="button" id="replayState" class="btn btn-primary">
+      Replay Recording
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <div class="dropdown-menu">
+      <button
+        class="dropdown-item"
+        onclick="window.getActionLink(
+          'module-league-state',
+          'replay-champselect',
+          {
+            'play': 'true'
+          }
+        )"
+      >
+        Copy Action-Link
+      </button>
+    </div>
+  </div>
+
   <input
     class="ml-3 form-control"
     id="recordingName"
