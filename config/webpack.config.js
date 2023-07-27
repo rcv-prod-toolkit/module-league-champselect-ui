@@ -22,6 +22,15 @@ const getClientEnvironment = require('./env')
 
 const postcssNormalize = require('postcss-normalize')
 
+const babelRuntimeEntry = require.resolve('babel-preset-react-app-webpack-5');
+const babelRuntimeEntryHelpers = require.resolve(
+ '@babel/runtime/helpers/esm/assertThisInitialized',
+  { paths: [babelRuntimeEntry] }
+);
+const babelRuntimeRegenerator = require.resolve('@babel/runtime/regenerator', {
+  paths: [babelRuntimeEntry]
+});
+
 const appPackageJson = require(paths.appPackageJson)
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
@@ -301,7 +310,12 @@ module.exports = function (webpackEnv) {
         // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
         // please link the files into your node_modules/ and let module-resolution kick in.
         // Make sure your source files are compiled, as they will not be processed in any way.
-        new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])
+        // new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])
+        new ModuleScopePlugin(paths.appSrc, [
+          paths.appPackageJson,
+          babelRuntimeEntry,
+          babelRuntimeEntryHelpers,
+          babelRuntimeRegenerator])
       ]
     },
     resolveLoader: {
