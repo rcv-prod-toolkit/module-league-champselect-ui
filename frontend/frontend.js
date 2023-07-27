@@ -5,7 +5,7 @@ const replayBtn = document.querySelector('#replayState')
 
 window.LPTE.onready(async () => {
   const server = await window.constants.getWebServerPort()
-  const location = `http://${server}/pages/op-module-league-champselect-ui`
+  const location = `${window.location.protocol}//${server}/pages/op-module-league-champselect-ui`
 
   const apiKey = await window.constants.getApiKey()
 
