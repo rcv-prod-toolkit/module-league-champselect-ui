@@ -9,6 +9,7 @@
     "plugin": {
       "main": "plugin.js"
     },
+    "toolkitVersion": ">=1.8",
     "needsBuild": true,
     "dependencies": [
       "module-league-state",
